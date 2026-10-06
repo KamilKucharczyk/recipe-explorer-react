@@ -10,30 +10,37 @@ import ToCook from "./pages/ToCook";
 import Profile from "./pages/Profile";
 import NotFound from "./components/NotFound";
 
+import ToCookProvider from "./context/ToCookContext";
+import FavoritesProvider from "./context/FavoritesContext";
+
 const App = () => {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <Layout />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<Navigate to="recipes" />} />
-            <Route path="recipes" element={<Recipes />} />
-            <Route path="recipes/:id" element={<RecipeDetails />} />
-            <Route path="favorites" element={<Favorites />} />
-            <Route path="to-cook" element={<ToCook />} />
-            <Route path="profile" element={<Profile />} />
-          </Route>
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <FavoritesProvider>
+        <ToCookProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <Layout />
+                  </ProtectedRoute>
+                }
+              >
+                <Route index element={<Navigate to="recipes" />} />
+                <Route path="recipes" element={<Recipes />} />
+                <Route path="recipes/:id" element={<RecipeDetails />} />
+                <Route path="favorites" element={<Favorites />} />
+                <Route path="to-cook" element={<ToCook />} />
+                <Route path="profile" element={<Profile />} />
+              </Route>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </ToCookProvider>
+      </FavoritesProvider>
     </AuthProvider>
   );
 };
