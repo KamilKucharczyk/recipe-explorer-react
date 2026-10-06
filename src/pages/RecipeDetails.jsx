@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import useFavorites from "../hooks/useFavorites";
+import useToCook from "../hooks/useToCook";
 
 const API_URL = "https://www.themealdb.com/api/json/v1/1/lookup.php";
 
@@ -10,6 +12,8 @@ const RecipeDetails = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { id } = useParams();
+  const { addFavorite } = useFavorites();
+  const { addToCook } = useToCook();
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -36,9 +40,13 @@ const RecipeDetails = () => {
     navigate(location.state?.from || "/recipes");
   };
 
-  const handleAddToFavorites = () => {};
+  const handleAddToFavorites = () => {
+    addFavorite(details);
+  };
 
-  const handleAddToCookList = () => {};
+  const handleAddToCookList = () => {
+    addToCook(details);
+  };
 
   if (loading) {
     return <p>Loading...</p>;
