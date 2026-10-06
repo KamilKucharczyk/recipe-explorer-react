@@ -7,7 +7,7 @@ const ToCook = () => {
   };
 
   const allItems = toCook.length;
-  const doneItems = toCook.filter((item) => item === item.done).length;
+  const doneItems = toCook.filter((item) => item.done).length;
   const notDoneItems = allItems - doneItems;
 
   return (
